@@ -24,7 +24,7 @@ public class QuestionController {
         Optional<List> user = Optional.ofNullable(questionService.getAllQuestions());
         return Optional.ofNullable(user.orElse(null));
     }
-    @PutMapping("{id}")
+    @GetMapping("{id}")
     public Question getQuestionById(@PathVariable Long id){
         Optional<Question> question = questionService.getQuestionById(id);
         return (Question) question.orElse(null);
@@ -39,7 +39,7 @@ public class QuestionController {
         return questionService.deleQuestionById(id);
     }
 
-    @PostMapping("creer")
+    @PostMapping("/creer")
     public Question create(@RequestBody Question question){
         return questionService.createQuiz(question);
     }

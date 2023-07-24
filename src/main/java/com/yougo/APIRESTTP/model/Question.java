@@ -1,5 +1,6 @@
 package com.yougo.APIRESTTP.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class Question {
     @JoinColumn(name = "quiz_id",nullable = false)
     private Quiz quiz;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "question",cascade = CascadeType.ALL)
     private List<Reponse> reponses;
 

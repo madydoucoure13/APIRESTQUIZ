@@ -17,9 +17,18 @@ public class QuizService {
         return quizRepository.save(quiz);
     }
     public List<Quiz> getAllQuiz(){
-      return quizRepository.findAll();
+
+        return quizRepository.findAll();
+    }
+    public List<Quiz> getAllQuizByUtilisateur(Long id){
+
+        return quizRepository.findByUtilisateur_id(id);
     }
 
+    public List<Quiz> getSearchQuiz(String titre){
+
+        return quizRepository.findByTitreContaining(titre);
+    }
     public Optional<Quiz> getQuizById(Long id){
         return quizRepository.findById(id);
     }

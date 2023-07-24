@@ -1,35 +1,28 @@
 package com.yougo.APIRESTTP.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
 
-@Entity
-public class Quiz {
+public class Category {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private String titre;
-
 
     @ManyToOne
     @JoinColumn(name = "utilisateur_id",nullable = false)
     private Utilisateur utilisateur;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "quiz",cascade = CascadeType.ALL)
-    private List<Question> questions;
 
-    public Quiz() {
+    public Category() {
     }
 
-    public Quiz(Long id, String titre,Utilisateur utilisateur, List<Question> questions) {
+    public Category(Long id, String titre,Utilisateur utilisateur) {
         this.id = id;
         this.titre = titre;
-        this.questions = questions;
         this.utilisateur = utilisateur;
     }
 
@@ -57,11 +50,4 @@ public class Quiz {
         this.titre = titre;
     }
 
-    public List<Question> getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
-    }
 }

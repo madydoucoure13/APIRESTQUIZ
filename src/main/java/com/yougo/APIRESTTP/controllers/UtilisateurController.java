@@ -1,5 +1,6 @@
 package com.yougo.APIRESTTP.controllers;
 
+import com.yougo.APIRESTTP.ApiResponse;
 import com.yougo.APIRESTTP.model.Utilisateur;
 import com.yougo.APIRESTTP.services.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-@RequestMapping("utilisateur/")
+@RequestMapping("utilisateur")
 @RestController
 public class UtilisateurController {
 
@@ -17,7 +18,7 @@ public class UtilisateurController {
     public UtilisateurController(UtilisateurService userService){
         this.userService = userService;
     }
-    @PutMapping("{id}")
+    @GetMapping("{id}")
     public Utilisateur getUseByIdr(@PathVariable Long id){
         Optional<Utilisateur> user = userService.getUtilisateurById(id);
         return (Utilisateur) user.orElse(null);
@@ -27,7 +28,7 @@ public class UtilisateurController {
         Optional<Utilisateur> user = Optional.ofNullable(userService.editUtilisateur(id, utilisateur));
         return (Utilisateur) user.orElse(null);
     }
-    @DeleteMapping("delete/")
+    @DeleteMapping("delete/{id}")
     public  Boolean test(@PathVariable Long id){
         return userService.deleteUtilisateurById(id);
     }
@@ -39,5 +40,11 @@ public class UtilisateurController {
     @PostMapping("creer")
     public Utilisateur create(@RequestBody Utilisateur utilisateur){
         return userService.createUtilisateur(utilisateur);
+    }
+
+
+    @PostMapping("/login")
+    public ApiResponse login(@RequestParam String email, @RequestParam String password){
+        return userService.login(email,password);
     }
 }

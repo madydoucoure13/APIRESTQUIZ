@@ -1,5 +1,6 @@
 package com.yougo.APIRESTTP.services;
 
+import com.yougo.APIRESTTP.ApiResponse;
 import com.yougo.APIRESTTP.model.Utilisateur;
 import com.yougo.APIRESTTP.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,19 @@ public class UtilisateurService {
                     return utilisateurRepository.save(p);
                 }).orElseThrow(() -> new RuntimeException("Quiz non trouvé"));
         return utilisateur;
+    }
+
+    public ApiResponse login(String email , String password){
+
+        Utilisateur user = utilisateurRepository.findByEmail(email);
+        if(user == null) {
+           // throw new RuntimeException("Password mismatch.");
+            return new ApiResponse(200, "Couple email et mot de passe ne correspond pas", null) ;
+        }
+        if(!user.getPassword().equals(password)){
+            throw new RuntimeException("Password mismatch.");
+        }
+        return new ApiResponse(200, "Login success", null) ;
     }
     public boolean deleteUtilisateurById(Long id){
         utilisateurRepository.deleteById(id);
