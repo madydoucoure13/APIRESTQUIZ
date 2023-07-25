@@ -22,7 +22,7 @@ public class ParticipationService {
         return participationRepository.findAll();
     }
 
-    public Optional<Participation> getQuestionById(Long id){
+    public Optional<Participation> getParticipationById(Long id){
         return participationRepository.findById(id);
     }
 
@@ -37,5 +37,9 @@ public class ParticipationService {
     public boolean deleQuestionById(Long id){
         participationRepository.deleteById(id);
         return true;
+    }
+
+    public Participation getParticipationByUserAndQuizId(Long userId, Long quizId) {
+        return  participationRepository.findByUtilisateur_IdAndQuiz_Id(userId,quizId);
     }
 }

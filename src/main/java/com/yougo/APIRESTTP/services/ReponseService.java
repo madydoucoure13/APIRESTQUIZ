@@ -1,7 +1,9 @@
 package com.yougo.APIRESTTP.services;
 
+import com.yougo.APIRESTTP.model.Question;
 import com.yougo.APIRESTTP.model.Reponse;
 import com.yougo.APIRESTTP.repository.ReponseRepository;
+import com.yougo.APIRESTTP.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,5 +39,9 @@ public class ReponseService {
     public boolean deleteReponseById(Long id){
         reponseRepository.deleteById(id);
         return true;
+    }
+
+    public List<Reponse> getAllResponsesByQuizId(Long quizId) {
+        return reponseRepository.findReponsesByQuestion_Id(quizId);
     }
 }

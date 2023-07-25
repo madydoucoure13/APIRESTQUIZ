@@ -13,6 +13,9 @@ public class Question {
     @Column(nullable = false)
     private String libelle;
 
+    @Column(columnDefinition = "integer default 1")
+    private int points;
+
     @ManyToOne
     @JoinColumn(name = "quiz_id",nullable = false)
     private Quiz quiz;
@@ -56,9 +59,18 @@ public class Question {
         this.reponses = reponses;
     }
 
-    public Question(Long id, String libelle, Quiz quiz, List<Reponse> reponses) {
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public Question(Long id, String libelle,int points, Quiz quiz, List<Reponse> reponses) {
         this.id = id;
         this.libelle = libelle;
+        this.points = points;
         this.quiz = quiz;
         this.reponses = reponses;
     }

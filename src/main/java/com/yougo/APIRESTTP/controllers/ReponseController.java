@@ -30,17 +30,17 @@ public class ReponseController {
         Optional<Reponse> reponse = reponseService.getReponseById(id);
         return (Reponse) reponse.orElse(null);
     }
-    @PutMapping("update/{id}")
+    @PutMapping("/update/{id}")
     public Reponse updateResponse(@PathVariable Long id,@RequestBody Reponse reponse){
         Optional<Reponse> quizz = Optional.ofNullable(reponseService.editReponse(id, reponse));
         return (Reponse) quizz.orElse(null);
     }
-    @DeleteMapping("delete/")
+    @DeleteMapping("/delete/{id}")
     public  Boolean delete(@PathVariable Long id){
         return reponseService.deleteReponseById(id);
     }
 
-    @PostMapping("creer")
+    @PostMapping("/creer")
     public Reponse create(@RequestBody Reponse reponse){
         return reponseService.createReponse(reponse);
     }

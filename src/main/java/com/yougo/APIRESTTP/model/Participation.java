@@ -1,7 +1,7 @@
 package com.yougo.APIRESTTP.model;
 
 import jakarta.persistence.*;
-
+@Entity
 public class Participation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

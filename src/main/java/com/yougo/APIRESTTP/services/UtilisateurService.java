@@ -25,6 +25,9 @@ public class UtilisateurService {
         return utilisateurRepository.findById(id);
     }
 
+    public Utilisateur findUtilisateurById(Long id){
+        return utilisateurRepository.findById(id).get();
+    }
     public Utilisateur editUtilisateur(Long id, Utilisateur utilisateur){
         utilisateurRepository.findById(id)
                 .map(p ->{
@@ -43,9 +46,9 @@ public class UtilisateurService {
             return new ApiResponse(200, "Couple email et mot de passe ne correspond pas", null) ;
         }
         if(!user.getPassword().equals(password)){
-            throw new RuntimeException("Password mismatch.");
+            return new ApiResponse(200, "Couple email et mot de passe ne correspond pas", null);
         }
-        return new ApiResponse(200, "Login success", null) ;
+        return new ApiResponse(200, "Login success", user) ;
     }
     public boolean deleteUtilisateurById(Long id){
         utilisateurRepository.deleteById(id);

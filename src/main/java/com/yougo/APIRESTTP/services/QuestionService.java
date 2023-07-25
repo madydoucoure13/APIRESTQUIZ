@@ -28,6 +28,10 @@ public class QuestionService {
         return questionRepository.findById(id);
     }
 
+    public Question findQuestionById(Long id){
+        return questionRepository.findQuestionById(id);
+    }
+
     public Question editQuestion(Long id, Question question){
         questionRepository.findById(id)
                 .map(p ->{
