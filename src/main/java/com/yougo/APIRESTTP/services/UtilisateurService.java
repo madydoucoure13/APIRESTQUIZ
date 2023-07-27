@@ -29,13 +29,13 @@ public class UtilisateurService {
         return utilisateurRepository.findById(id).get();
     }
     public Utilisateur editUtilisateur(Long id, Utilisateur utilisateur){
-        utilisateurRepository.findById(id)
+       Utilisateur user = utilisateurRepository.findById(id)
                 .map(p ->{
                     p.setName(utilisateur.getName());
                     p.setPassword(utilisateur.getPassword());
                     return utilisateurRepository.save(p);
                 }).orElseThrow(() -> new RuntimeException("Quiz non trouvé"));
-        return utilisateur;
+        return user;
     }
 
     public ApiResponse login(String email , String password){

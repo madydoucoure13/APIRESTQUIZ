@@ -34,12 +34,12 @@ public class QuestionController {
         Optional<Question> question1 = Optional.ofNullable(questionService.editQuestion(id, question));
         return (Question) question1.orElse(null);
     }
-    @DeleteMapping("delete/")
+    @DeleteMapping("/delete/{id}")
     public  Boolean deleteQuiz(@PathVariable Long id){
         return questionService.deleQuestionById(id);
     }
 
-    @PostMapping("/creer")
+    @PostMapping("/create")
     public Question create(@RequestBody Question question){
         return questionService.createQuiz(question);
     }

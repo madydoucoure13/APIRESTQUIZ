@@ -36,6 +36,7 @@ public class QuestionService {
         questionRepository.findById(id)
                 .map(p ->{
                     p.setLibelle(question.getLibelle());
+                    p.setPoints(question.getPoints());
                     return questionRepository.save(p);
                 }).orElseThrow(() -> new RuntimeException("Question non trouvé"));
         return question;

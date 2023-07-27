@@ -49,7 +49,7 @@ public class QuizController {
         return quizService.deleQuizById(id);
     }
 
-    @PostMapping("/creer")
+    @PostMapping("/create")
     public Quiz create(@RequestBody Quiz quiz){
         return quizService.createQuiz(quiz);
     }

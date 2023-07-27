@@ -14,7 +14,7 @@ public class Participation {
     @ManyToOne
     @JoinColumn(name = "quiz_id",nullable = false)
     private Quiz quiz;
-
+    private int score;
     public Participation() {
     }
 
@@ -24,8 +24,6 @@ public class Participation {
         this.quiz = quiz;
         this.score = score;
     }
-
-    private int score;
 
     public Long getId() {
         return id;

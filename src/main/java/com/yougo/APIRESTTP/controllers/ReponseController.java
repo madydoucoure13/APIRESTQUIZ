@@ -25,7 +25,7 @@ public class ReponseController {
         Optional<List> responses = Optional.ofNullable(reponseService.getAllResponses());
         return Optional.ofNullable(responses.orElse(null));
     }
-    @PutMapping("{id}")
+    @GetMapping("/{id}")
     public Reponse getResponseById(@PathVariable Long id){
         Optional<Reponse> reponse = reponseService.getReponseById(id);
         return (Reponse) reponse.orElse(null);
@@ -40,7 +40,7 @@ public class ReponseController {
         return reponseService.deleteReponseById(id);
     }
 
-    @PostMapping("/creer")
+    @PostMapping("/create")
     public Reponse create(@RequestBody Reponse reponse){
         return reponseService.createReponse(reponse);
     }

@@ -34,7 +34,8 @@ public class ParticipationController {
     }
 
     @GetMapping("/{userId}/{quizId}/{questionId}")
-    public ApiResponse game(@PathVariable Long userId, @PathVariable Long questionId,@RequestParam Long checkedReponseID){
+    public ApiResponse game(@PathVariable Long userId, @PathVariable Long questionId,
+                            @RequestParam Long checkedReponseID){
             Utilisateur utilisateur = utilisateurService.findUtilisateurById(userId);
             Question quest = questionService.findQuestionById(questionId);
             Quiz quiz = quest.getQuiz();
@@ -51,8 +52,8 @@ public class ParticipationController {
            }
            List <Reponse> responses = reponseService.getAllResponsesByQuizId(quizId);
            if(checkResponse){
-               participationService.editParticipation(participation.getId(), quest.getPoints());
-               return new ApiResponse(200,"Mr "+utilisateur.getName()+" Vous avez choici la bonne reponse "+checkedReponseID,responses);
+               participationService.editParticipation(participation.getId(), participation.getScore()+quest.getPoints());
+               return new ApiResponse(200,"Mr "+utilisateur.getName()+" Vous avez choici la bonne reponse votre est de "+(participation.getScore()+quest.getPoints()),null);
            }else
                return new ApiResponse(200," Oups Mr "+utilisateur.getName()+" Vous avez choici la nauvaise reponse "+checkedReponseID,responses);
 

@@ -37,6 +37,7 @@ public class QuizService {
             quizRepository.findById(id)
                     .map(p ->{
                         p.setTitre(quiz.getTitre());
+                        p.setMinPoint(quiz.getMinPoint());
                         p.setUtilisateur(quiz.getUtilisateur());
                         return quizRepository.save(p);
                     }).orElseThrow(() -> new RuntimeException("Quiz non trouvé"));

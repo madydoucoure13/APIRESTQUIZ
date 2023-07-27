@@ -14,6 +14,8 @@ public class Quiz {
     @Column (nullable = false)
     private String titre;
 
+    @Column(columnDefinition = "integer default 1")
+    private int minPoint;
 
     @ManyToOne
     @JoinColumn(name = "utilisateur_id",nullable = false)
@@ -26,15 +28,24 @@ public class Quiz {
     public Quiz() {
     }
 
-    public Quiz(Long id, String titre,Utilisateur utilisateur, List<Question> questions) {
+    public Quiz(Long id, String titre,int minPoint,Utilisateur utilisateur, List<Question> questions) {
         this.id = id;
         this.titre = titre;
+        this.minPoint = minPoint;
         this.questions = questions;
         this.utilisateur = utilisateur;
     }
 
     public Utilisateur getUtilisateur() {
         return utilisateur;
+    }
+
+    public int getMinPoint() {
+        return minPoint;
+    }
+
+    public void setMinPoint(int minPoint) {
+        this.minPoint = minPoint;
     }
 
     public void setUtilisateur(Utilisateur utilisateur) {
