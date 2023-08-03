@@ -33,14 +33,24 @@ public class ParticipationController {
         this.reponseService = reponseService;
     }
 
+    @GetMapping("/{userId}/{quizId}/init")
+    public Participation init(@PathVariable Long userId,@PathVariable Long quizId){
+        Participation participation = participationService.getParticipationByUserAndQuizId(userId,quizId);
+        if(participation != null){
+            participationService.editParticipation(participation.getId(), 0);
+                participation.setScore(0);
+            return participation;
+        }
+        return  new Participation();
+    }
     @GetMapping("/{userId}/{quizId}/{questionId}")
-    public ApiResponse game(@PathVariable Long userId, @PathVariable Long questionId,
+    public ApiResponse game(@PathVariable Long userId,@PathVariable Long quizId, @PathVariable Long questionId,
                             @RequestParam Long checkedReponseID){
             Utilisateur utilisateur = utilisateurService.findUtilisateurById(userId);
             Question quest = questionService.findQuestionById(questionId);
             Quiz quiz = quest.getQuiz();
 
-           Long quizId = quiz.getId();
+          // Long quizzId = quiz.getId();
            boolean checkResponse = reponseService.getReponseById(checkedReponseID).get().isIscorrect();
            Participation participation = participationService.getParticipationByUserAndQuizId(userId,quizId);
            if(participation == null){
@@ -48,14 +58,14 @@ public class ParticipationController {
                 participation.setScore(0);
                 participation.setQuiz(quiz);
                 participation.setUtilisateur(utilisateur);
-               participationService.createQuiz(participation);
+                participationService.createQuiz(participation);
            }
            List <Reponse> responses = reponseService.getAllResponsesByQuizId(quizId);
            if(checkResponse){
                participationService.editParticipation(participation.getId(), participation.getScore()+quest.getPoints());
-               return new ApiResponse(200,"Mr "+utilisateur.getName()+" Vous avez choici la bonne reponse votre est de "+(participation.getScore()+quest.getPoints()),null);
+               return new ApiResponse(200,"Mr "+utilisateur.getName()+" Vous avez choici la bonne reponse votre score est de "+(participation.getScore()),null);
            }else
-               return new ApiResponse(200," Oups Mr "+utilisateur.getName()+" Vous avez choici la nauvaise reponse "+checkedReponseID,responses);
+               return new ApiResponse(200," Oups Mr "+utilisateur.getName()+" Vous avez choici la nauvaise reponse votre score est de "+(participation.getScore()),responses);
 
     }
     @GetMapping("{id}")
